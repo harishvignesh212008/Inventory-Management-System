@@ -1,1203 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="theme-color" content="#101827">
     <title>Inventory Management System</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
-
-    <aside class="sidebar">
-
-        <div class="logo-area">
-
-            <div class="logo">
-                IM
-            </div>
-
-            <div>
-                <h2>Inventory</h2>
-                <p>Management System</p>
-            </div>
-
+    <!-- LOGIN -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <div class="login-logo">IM</div>
+            <h1>Inventory Management</h1>
+            <p>Sign in to manage your inventory securely.</p>
+            <button id="googleLoginBtn" class="google-btn" type="button">
+                <span>G</span> Continue with Google
+            </button>
+            <p id="loginMessage" class="message" aria-live="polite"></p>
         </div>
-
-
-        <nav class="sidebar-menu">
-
-            <button class="nav-btn active" data-section="dashboard">
-                ▣
-                <span>Dashboard</span>
-            </button>
-
-            <button class="nav-btn" data-section="products">
-                ▤
-                <span>Products</span>
-            </button>
-
-            <button class="nav-btn" data-section="add-product">
-                +
-                <span>Add Product</span>
-            </button>
-
-            <button class="nav-btn" data-section="stock">
-                ↕
-                <span>Stock Management</span>
-            </button>
-
-            <!-- NEW -->
-            <button class="nav-btn" data-section="sales">
-                🛒
-                <span>Sales / Purchases</span>
-            </button>
-
-            <button class="nav-btn" data-section="reports">
-                ▥
-                <span>Reports</span>
-            </button>
-
-        </nav>
-
-
-        <button class="nav-btn settings-btn" data-section="settings">
-            ⚙
-            <span>Settings</span>
-        </button>
-
-    </aside>
-
-
-    <!-- ================= MAIN ================= -->
-
-    <main class="main-content">
-
-
-        <!-- TOP BAR -->
-
-        <header class="top-bar">
-
-            <div>
-
-                <h1 id="page-title">
-                    Dashboard
-                </h1>
-
-                <p id="page-subtitle">
-                    Welcome to your inventory management system.
-                </p>
-
-            </div>
-
-
-            <div class="admin-area">
-
-                <div class="admin-circle">
-                    A
-                </div>
-
-                <div>
-                    <strong>Admin</strong>
-                    <small>Administrator</small>
-                </div>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- ================= DASHBOARD ================= -->
-
-        <section id="dashboard" class="page-section active-section">
-
-
-            <!-- STAT CARDS -->
-
-            <div class="stats-grid">
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon blue">
-                        ▦
-                    </div>
-
-                    <div>
-
-                        <p>Total Products</p>
-
-                        <h2 id="total-products">
-                            0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon green">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <p>In Stock</p>
-
-                        <h2 id="in-stock">
-                            0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon yellow">
-                        !
-                    </div>
-
-                    <div>
-
-                        <p>Low Stock</p>
-
-                        <h2 id="low-stock">
-                            0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon red">
-                        ×
-                    </div>
-
-                    <div>
-
-                        <p>Out of Stock</p>
-
-                        <h2 id="out-stock">
-                            0
-                        </h2>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- SALES QUICK STATS -->
-
-            <div class="quick-stats">
-
-                <div class="quick-card">
-
-                    <span>🛒</span>
-
-                    <div>
-                        <p>Total Sales</p>
-                        <h3 id="dashboard-sales-count">0</h3>
-                    </div>
-
-                </div>
-
-
-                <div class="quick-card">
-
-                    <span>💰</span>
-
-                    <div>
-                        <p>Total Revenue</p>
-                        <h3 id="dashboard-revenue">₹0</h3>
-                    </div>
-
-                </div>
-
-
-                <div class="quick-card">
-
-                    <span>📦</span>
-
-                    <div>
-                        <p>Total Units</p>
-                        <h3 id="dashboard-units">0</h3>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- INVENTORY -->
-
-            <div class="content-card">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>
-                            Inventory Overview
-                        </h2>
-
-                        <p>
-                            Manage and monitor your products.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="dashboard-add-btn"
-                    >
-                        + Add Product
-                    </button>
-
-                </div>
-
-
-                <div class="filters">
-
-                    <div class="search-box">
-
-                        🔍
-
-                        <input
-                            type="text"
-                            id="dashboard-search"
-                            placeholder="Search products..."
-                        >
-
-                    </div>
-
-
-                    <select id="dashboard-category">
-
-                        <option value="all">
-                            All Categories
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody id="dashboard-product-table">
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= PRODUCTS ================= -->
-
-        <section id="products" class="page-section">
-
-            <div class="content-card">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>
-                            Products
-                        </h2>
-
-                        <p>
-                            View and manage all your products.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="products-add-btn"
-                    >
-                        + Add Product
-                    </button>
-
-                </div>
-
-
-                <div class="filters">
-
-                    <div class="search-box">
-
-                        🔍
-
-                        <input
-                            type="text"
-                            id="products-search"
-                            placeholder="Search products..."
-                        >
-
-                    </div>
-
-
-                    <select id="products-category">
-
-                        <option value="all">
-                            All Categories
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Supplier</th>
-                                <th>Status</th>
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody id="products-table">
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= ADD PRODUCT ================= -->
-
-        <section id="add-product" class="page-section">
-
-            <div class="form-card">
-
-                <h2>
-                    Add New Product
-                </h2>
-
-                <p>
-                    Enter the product details below.
-                </p>
-
-
-                <form id="product-form">
-
-                    <div class="form-grid">
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Product Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="product-name"
-                                placeholder="Example: Asus TUF A15"
-                                required
-                            >
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Category
-                            </label>
-
-                            <select
-                                id="product-category"
-                                required
-                            >
-
-                                <option value="">
-                                    Select Category
-                                </option>
-
-                                <option value="Electronics">
-                                    Electronics
-                                </option>
-
-                                <option value="Furniture">
-                                    Furniture
-                                </option>
-
-                                <option value="Clothing">
-                                    Clothing
-                                </option>
-
-                                <option value="Food">
-                                    Food
-                                </option>
-
-                                <option value="Stationery">
-                                    Stationery
-                                </option>
-
-                                <option value="Other">
-                                    Other
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Quantity
-                            </label>
-
-                            <input
-                                type="number"
-                                id="product-quantity"
-                                min="0"
-                                required
-                            >
-
-                            <small>
-                                0 = Out of Stock |
-                                1-9 = Low Stock |
-                                10+ = In Stock
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Price (₹)
-                            </label>
-
-                            <input
-                                type="number"
-                                id="product-price"
-                                min="0"
-                                step="0.01"
-                                required
-                            >
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Supplier
-                            </label>
-
-                            <input
-                                type="text"
-                                id="product-supplier"
-                                required
-                            >
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Product ID
-                            </label>
-
-                            <input
-                                type="text"
-                                id="product-id"
-                                placeholder="PROD001"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-buttons">
-
-                        <button
-                            type="submit"
-                            class="primary-btn"
-                        >
-                            + Add Product
-                        </button>
-
-
-                        <button
-                            type="reset"
-                            class="secondary-btn"
-                        >
-                            Clear
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= STOCK MANAGEMENT ================= -->
-
-        <section id="stock" class="page-section">
-
-            <div class="content-card">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>
-                            Stock Management
-                        </h2>
-
-                        <p>
-                            Increase or decrease product stock manually.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Current Stock</th>
-                                <th>Status</th>
-                                <th>Update Stock</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody id="stock-table">
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= SALES ================= -->
-
-        <section id="sales" class="page-section">
-
-
-            <!-- RECORD SALE -->
-
-            <div class="form-card">
-
-                <h2>
-                    🛒 Record Customer Purchase
-                </h2>
-
-                <p>
-                    Enter the customer's purchase. Stock will automatically decrease.
-                </p>
-
-
-                <form id="sale-form">
-
-                    <div class="form-grid">
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Customer Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="customer-name"
-                                placeholder="Example: Rahul"
-                                required
-                            >
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Product
-                            </label>
-
-                            <select
-                                id="sale-product"
-                                required
-                            >
-
-                                <option value="">
-                                    Select Product
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Quantity Purchased
-                            </label>
-
-                            <input
-                                type="number"
-                                id="sale-quantity"
-                                min="1"
-                                placeholder="Example: 2"
-                                required
-                            >
-
-                            <small id="available-stock">
-                                Available stock: 0
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Sale Date
-                            </label>
-
-                            <input
-                                type="date"
-                                id="sale-date"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="sale-preview">
-
-                        <div>
-                            <span>Unit Price</span>
-                            <strong id="sale-unit-price">
-                                ₹0
-                            </strong>
-                        </div>
-
-
-                        <div>
-                            <span>Quantity</span>
-                            <strong id="sale-preview-quantity">
-                                0
-                            </strong>
-                        </div>
-
-
-                        <div>
-                            <span>Total Amount</span>
-                            <strong id="sale-total">
-                                ₹0
-                            </strong>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-buttons">
-
-                        <button
-                            type="submit"
-                            class="primary-btn"
-                        >
-                            🛒 Record Sale
-                        </button>
-
-
-                        <button
-                            type="reset"
-                            class="secondary-btn"
-                        >
-                            Clear
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-
-
-            <!-- SALES HISTORY -->
-
-            <div class="content-card">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>
-                            Sales History
-                        </h2>
-
-                        <p>
-                            Previous customer purchases.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Date</th>
-                                <th>Customer</th>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody id="sales-table">
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= REPORTS ================= -->
-
-        <section id="reports" class="page-section">
-
-
-            <div class="stats-grid">
-
-
-                <div class="report-card">
-
-                    <p>
-                        Total Inventory Value
-                    </p>
-
-                    <h2 id="inventory-value">
-                        ₹0
-                    </h2>
-
-                </div>
-
-
-                <div class="report-card">
-
-                    <p>
-                        Total Units
-                    </p>
-
-                    <h2 id="total-units">
-                        0
-                    </h2>
-
-                </div>
-
-
-                <div class="report-card">
-
-                    <p>
-                        Total Sales
-                    </p>
-
-                    <h2 id="report-sales-count">
-                        0
-                    </h2>
-
-                </div>
-
-
-                <div class="report-card">
-
-                    <p>
-                        Total Revenue
-                    </p>
-
-                    <h2 id="report-revenue">
-                        ₹0
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="content-card">
-
-                <div class="section-header">
-
-                    <div>
-
-                        <h2>
-                            Inventory Report
-                        </h2>
-
-                        <p>
-                            Complete summary of your inventory.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="secondary-btn"
-                        id="print-report"
-                    >
-                        🖨 Print Report
-                    </button>
-
-                </div>
-
-
-                <div id="report-summary">
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ================= SETTINGS ================= -->
-
-        <section id="settings" class="page-section">
-
-            <div class="content-card">
-
-                <h2>
-                    Settings
-                </h2>
-
-                <p class="settings-text">
-                    Manage your inventory system settings.
-                </p>
-
-
-                <div class="setting-row">
-
-                    <div>
-
-                        <strong>
-                            Low Stock Limit
-                        </strong>
-
-                        <p>
-                            Products below this quantity are shown as Low Stock.
-                        </p>
-
-                    </div>
-
-
-                    <input
-                        type="number"
-                        id="low-stock-limit"
-                        value="10"
-                        min="1"
-                    >
-
-                </div>
-
-
-                <div class="setting-row">
-
-                    <div>
-
-                        <strong>
-                            Clear All Products
-                        </strong>
-
-                        <p>
-                            Permanently remove all inventory products.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="danger-btn"
-                        id="clear-all"
-                    >
-                        Clear Inventory
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-    </main>
-
-
-
-    <!-- ================= EDIT MODAL ================= -->
-
-    <div
-        class="modal"
-        id="edit-modal"
-    >
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h2>
-                    Edit Product
-                </h2>
-
-                <button
-                    class="close-btn"
-                    id="close-modal"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <form id="edit-form">
-
-                <input
-                    type="hidden"
-                    id="edit-index"
-                >
-
-
-                <div class="form-group">
-
-                    <label>
-                        Product Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="edit-name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Category
-                    </label>
-
-                    <select
-                        id="edit-category"
-                        required
-                    >
-
-                        <option value="Electronics">
-                            Electronics
-                        </option>
-
-                        <option value="Furniture">
-                            Furniture
-                        </option>
-
-                        <option value="Clothing">
-                            Clothing
-                        </option>
-
-                        <option value="Food">
-                            Food
-                        </option>
-
-                        <option value="Stationery">
-                            Stationery
-                        </option>
-
-                        <option value="Other">
-                            Other
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Quantity
-                    </label>
-
-                    <input
-                        type="number"
-                        id="edit-quantity"
-                        min="0"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Price
-                    </label>
-
-                    <input
-                        type="number"
-                        id="edit-price"
-                        min="0"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Supplier
-                    </label>
-
-                    <input
-                        type="text"
-                        id="edit-supplier"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="primary-btn full-btn"
-                >
-                    Save Changes
-                </button>
-
-            </form>
-
-        </div>
-
     </div>
 
+    <!-- MOBILE MENU -->
+    <button id="mobileMenuBtn" class="mobile-menu-btn"
+            type="button" aria-label="Toggle navigation"
+            aria-expanded="false">☰</button>
 
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <div class="logo">IM</div>
+            <div>
+                <h2>Inventory</h2>
+                <span>Management System</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Main navigation">
+            <button class="nav-item active" data-section="dashboard">▦ <span>Dashboard</span></button>
+            <button class="nav-item" data-section="products">▤ <span>Products</span></button>
+            <button class="nav-item" data-section="add-product">＋ <span>Add Product</span></button>
+            <button class="nav-item" data-section="sales">🛒 <span>Sales / Purchase</span></button>
+            <button class="nav-item" data-section="stock">↕ <span>Stock Management</span></button>
+            <button class="nav-item" data-section="reports">▥ <span>Reports</span></button>
+            <button class="nav-item" data-section="settings">⚙ <span>Settings</span></button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="signed-in-mini">
+                <div class="admin-circle">U</div>
+                <div class="user-details">
+                    <strong id="sidebarUserName">User</strong>
+                    <small id="sidebarUserEmail">Signed in</small>
+                </div>
+            </div>
+            <button id="logoutBtn" class="logout-btn" type="button">↪ Log out</button>
+        </div>
+    </aside>
+
+    <!-- MAIN APPLICATION -->
+    <main class="main-content" id="mainContent">
+        <header class="top-header">
+            <div class="header-title">
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageSubtitle">Welcome to your inventory management system.</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="admin-circle" id="headerAvatar">U</div>
+                <div class="user-details">
+                    <strong id="headerUserName">User</strong>
+                    <small id="headerUserEmail">Signed in</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page-section active-section" id="dashboard">
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <div class="card-icon blue">▦</div>
+                    <div><p>Total Products</p><h2 id="totalProducts">0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon green">✓</div>
+                    <div><p>In Stock</p><h2 id="inStock">0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon orange">!</div>
+                    <div><p>Low Stock</p><h2 id="lowStock">0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon red">×</div>
+                    <div><p>Out of Stock</p><h2 id="outOfStock">0</h2></div>
+                </article>
+            </div>
+
+            <div class="summary-grid secondary-grid">
+                <article class="summary-card">
+                    <div class="card-icon purple">₹</div>
+                    <div><p>Total Sales</p><h2 id="totalSales">₹0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon blue">↗</div>
+                    <div><p>Items Sold</p><h2 id="itemsSold">0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon green">▣</div>
+                    <div><p>Transactions</p><h2 id="totalTransactions">0</h2></div>
+                </article>
+                <article class="summary-card">
+                    <div class="card-icon orange">₹</div>
+                    <div><p>Inventory Value</p><h2 id="inventoryValue">₹0</h2></div>
+                </article>
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Inventory</h2>
+                        <p>Review your current products and stock.</p>
+                    </div>
+                    <button class="primary-btn" id="dashboardAddBtn" type="button">+ Add Product</button>
+                </div>
+
+                <div class="toolbar">
+                    <input id="dashboardSearch" type="search" placeholder="Search products...">
+                    <select id="dashboardCategoryFilter">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th><th>Category</th><th>Quantity</th>
+                                <th>Price</th><th>Status</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardProductTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="page-section" id="products">
+            <div class="content-card">
+                <div class="section-heading">
+                    <div><h2>Products</h2><p>Manage your inventory items.</p></div>
+                    <button class="primary-btn" id="productsAddBtn" type="button">+ Add Product</button>
+                </div>
+                <div class="toolbar">
+                    <input id="productSearch" type="search" placeholder="Search products...">
+                    <select id="productCategoryFilter">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th><th>Category</th><th>Supplier</th>
+                                <th>Quantity</th><th>Price</th><th>Status</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADD PRODUCT -->
+        <section class="page-section" id="add-product">
+            <div class="content-card form-card">
+                <div class="section-heading">
+                    <div><h2>Add Product</h2><p>Enter the details of your product.</p></div>
+                </div>
+
+                <form id="productForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input id="productName" required maxlength="150" placeholder="Enter product name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Groceries">Groceries</option>
+                            <option value="Food">Food</option>
+                            <option value="Stationery">Stationery</option>
+                            <option value="Home">Home &amp; Kitchen</option>
+                            <option value="Beauty">Beauty &amp; Personal Care</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="productQuantity">Initial Quantity *</label>
+                            <input id="productQuantity" type="number" min="0" step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Unit Price (₹) *</label>
+                            <input id="productPrice" type="number" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSupplier">Supplier</label>
+                            <input id="productSupplier" maxlength="150" placeholder="Supplier name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productCode">Product Code</label>
+                            <input id="productCode" maxlength="100" placeholder="Optional SKU or code">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="primary-btn" type="submit">Save Product</button>
+                        <button class="secondary-btn" id="cancelProductBtn" type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- SALES -->
+        <section class="page-section" id="sales">
+            <div class="content-card form-card">
+                <div class="section-heading">
+                    <div><h2>Record a Sale</h2><p>Stock will be reduced when the sale is saved.</p></div>
+                </div>
+
+                <form id="saleForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="saleProduct">Product *</label>
+                            <select id="saleProduct" required>
+                                <option value="">Select a product</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="saleQuantity">Quantity *</label>
+                            <input id="saleQuantity" type="number" min="1" step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">Customer</label>
+                            <input id="customerName" maxlength="150" placeholder="Walk-in customer">
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod">
+                                <option>Cash</option>
+                                <option>UPI</option>
+                                <option>Card</option>
+                                <option>Bank Transfer</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sale-preview">
+                        <span>Estimated total</span>
+                        <strong id="saleTotal">₹0</strong>
+                    </div>
+                    <div class="form-actions">
+                        <button class="primary-btn" type="submit">Complete Sale</button>
+                        <button class="secondary-btn" type="reset">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading"><div><h2>Sales History</h2><p>Your recorded transactions.</p></div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr>
+                            <th>Date</th><th>Customer</th><th>Product</th>
+                            <th>Quantity</th><th>Amount</th><th>Payment</th>
+                        </tr></thead>
+                        <tbody id="salesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- STOCK -->
+        <section class="page-section" id="stock">
+            <div class="content-card form-card">
+                <div class="section-heading"><div><h2>Stock Management</h2><p>Add stock or remove unsold stock.</p></div></div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="stockProduct">Product *</label>
+                        <select id="stockProduct"><option value="">Select a product</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentStock">Current Stock</label>
+                        <input id="currentStock" type="number" readonly value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="stockQuantity">Quantity *</label>
+                        <input id="stockQuantity" type="number" min="1" step="1">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="primary-btn" id="addStockBtn" type="button">Add Stock</button>
+                    <button class="danger-btn" id="removeStockBtn" type="button">Remove Stock</button>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading"><div><h2>Current Stock</h2><p>Stock levels for all products.</p></div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Product</th><th>Category</th><th>Quantity</th><th>Status</th></tr></thead>
+                        <tbody id="stockTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section class="page-section" id="reports">
+            <div class="summary-grid">
+                <article class="summary-card"><div><p>Total Revenue</p><h2 id="reportRevenue">₹0</h2></div></article>
+                <article class="summary-card"><div><p>Items Sold</p><h2 id="reportItemsSold">0</h2></div></article>
+                <article class="summary-card"><div><p>Transactions</p><h2 id="reportTransactions">0</h2></div></article>
+            </div>
+            <div class="content-card">
+                <div class="section-heading"><div><h2>Inventory Report</h2><p>Current inventory valuation and stock status.</p></div></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Stock Value</th><th>Status</th></tr></thead>
+                        <tbody id="reportTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="page-section" id="settings">
+            <div class="content-card">
+                <div class="section-heading"><div><h2>Settings</h2><p>Configure your inventory preferences.</p></div></div>
+                <form id="settingsForm">
+                    <div class="settings-box">
+                        <div>
+                            <h3>Low Stock Limit</h3>
+                            <p>Products below this quantity will be marked as low stock.</p>
+                        </div>
+                        <input id="lowStockLimit" type="number" min="1" step="1" value="10" required>
+                        <button class="primary-btn" type="submit">Save</button>
+                    </div>
+                </form>
+                <div class="danger-zone">
+                    <div><h3>Reset Inventory</h3><p>Delete your products and sales from the cloud database.</p></div>
+                    <button class="danger-btn" id="resetDataBtn" type="button">Reset My Data</button>
+                </div>
+            </div>
+        </section>
+
+        <p id="appMessage" class="app-message" role="status" aria-live="polite"></p>
+    </main>
+
+    <!-- Supabase client library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
-
 </body>
-
 </html>
